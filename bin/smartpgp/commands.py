@@ -406,7 +406,7 @@ def get_sm_curve_oid(connection):
         curve.pop()
     #print ' '.join('{:02X}'.format(c) for c in curve)
     # Add DER OID header manually ...
-    return '\x06' + struct.pack('B',len(curve)) + curve
+    return b'\x06' + struct.pack('B',len(curve)) + curve
 
 def put_aes_key(connection, key):
     prefix = [0x00, 0xDA, 0x00, 0xD5]

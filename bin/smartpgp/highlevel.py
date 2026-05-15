@@ -188,13 +188,13 @@ class CardConnectionContext:
         if not curve_oid_der:
             print("Error getting SM curve OID")
             return
-        (curve_oid,_) = der_decoder.decode(str(curve_oid_der))
+        (curve_oid,_) = der_decoder.decode(curve_oid_der)
         # now format it to DER [RFC5480]
         s = univ.Sequence()
         oid_elliptic_curve_pubkey = univ.ObjectIdentifier('1.2.840.10045.2.1')
         s.setComponentByPosition(0,oid_elliptic_curve_pubkey)
         s.setComponentByPosition(1,curve_oid)
-        bs = univ.BitString("'%s'H" % binascii.hexlify(bytearray(pubkey)))
+        bs = univ.BitString("'%s'H" % bytes(pubkey).hex())
         s2 = univ.Sequence()
         s2.setComponentByPosition(0,s)
         s2.setComponentByPosition(1,bs)
